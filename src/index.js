@@ -3,19 +3,13 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { injectGlobal } from 'styled-components';
 
-// global styles and fonts 
+// injected global styles for styled components 
 injectGlobal`
-    body {
+    html, body {
+        font-family: 'Open Sans', sans-serif;
         margin: 0;
         padding: 0;
     }  
 `;
 
 ReactDOM.render(<App />, document.getElementById('root'));
-
-/*
-  @font-face {
-    font-family: 'Operator Mono';
-    src: url('../fonts/Operator-Mono.ttf');
-  }
-*/
