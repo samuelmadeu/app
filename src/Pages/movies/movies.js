@@ -14,7 +14,12 @@ const PageWrapper = styled.div`
     padding: 30px;
 `
 
-export default class MoviesPage extends React.Component {
+type Props = {
+    moviesList: Array<mixed>
+}
+
+// all the presentional logic of the movies page 
+export default class MoviesPage extends React.Component<Props> {
     render(): React.Node {
         return (
             <PageWrapper>
@@ -27,34 +32,39 @@ export default class MoviesPage extends React.Component {
 
                     <MoviesContainer 
                         render={({ 
-                            handleChange, 
-                            handleSubmit, 
-                            state: { value } 
+                            handleInputChange, 
+                            handleInputSubmit, 
+                            state: { 
+                                value, 
+                                moviesList, 
+                                isLoading
+                            }
                         }: {
-                            handleChange: Function, 
-                            handleSubmit: Function, 
-                            state: { value: string }
+                            handleInputChange: Function, 
+                            handleInputSubmit: Function, 
+                            state: { 
+                                value: string, 
+                                moviesList: Array<mixed>, 
+                                isLoading: boolean 
+                            }
                         }) => (
+                            <React.Fragment>
                                 <InputForm 
-                                    onSubmit={(e: SyntheticEvent<HTMLInputElement>) => handleSubmit(e)}
-                                    onChange={(e: SyntheticEvent<HTMLInputElement>) => handleChange(e)}
+                                    onSubmit={(e: SyntheticEvent<HTMLInputElement>) => handleInputSubmit(e)}
+                                    onChange={(e: SyntheticEvent<HTMLInputElement>) => handleInputChange(e)}
                                     value={value}
                                 />
-                            )
-                        }
-                    />
 
-                </Div>
+                                <ul>
+                                    {moviesList.map(i => <li key={i.trackId}>{i.trackId}</li>)}
+                                </ul>
 
-                <Div>   
-                    <MoviesContainer
-                        render={({ state: { moviesList }}: { state: { moviesList: Array<mixed> }}) => (
-                            <ul>
-                                {moviesList.map(i => <li key={i.trackId}>{i.trackId}</li>)}
-                            </ul>
+                            </React.Fragment>
                         )}
                     />
+
                 </Div>
+
             </PageWrapper>
         )
     }
