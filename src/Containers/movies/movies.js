@@ -17,7 +17,6 @@ const getMoviesFromApi = async (query: string): Promise<Array> => {
 }
 
 type Props = {
-    movies: string, 
     render: Function
 }
 

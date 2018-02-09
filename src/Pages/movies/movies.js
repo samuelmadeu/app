@@ -18,6 +18,16 @@ type Props = {
     moviesList: Array<mixed>
 }
 
+type MoviesContainerType = {
+    handleInputChange: Function, 
+    handleInputSubmit: Function, 
+    state: { 
+        value: string, 
+        moviesList: Array<mixed>, 
+        isLoading: boolean 
+    }    
+}
+
 // all the presentional logic of the movies page 
 export default class MoviesPage extends React.Component<Props> {
     render(): React.Node {
@@ -39,15 +49,8 @@ export default class MoviesPage extends React.Component<Props> {
                                 moviesList, 
                                 isLoading
                             }
-                        }: {
-                            handleInputChange: Function, 
-                            handleInputSubmit: Function, 
-                            state: { 
-                                value: string, 
-                                moviesList: Array<mixed>, 
-                                isLoading: boolean 
-                            }
-                        }) => (
+                        }: MoviesContainerType
+                        ) => (
                             <React.Fragment>
                                 <InputForm 
                                     onSubmit={(e: SyntheticEvent<HTMLInputElement>) => handleInputSubmit(e)}
@@ -58,7 +61,6 @@ export default class MoviesPage extends React.Component<Props> {
                                 <ul>
                                     {moviesList.map(i => <li key={i.trackId}>{i.trackId}</li>)}
                                 </ul>
-
                             </React.Fragment>
                         )}
                     />
