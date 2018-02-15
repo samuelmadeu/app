@@ -1,9 +1,10 @@
+// @flow 
+import * as React from 'react'
+import styled, { css } from 'styled-components'
+
 /* @flow 
     Style Utilities for use with styled components 
 */
-
-import * as React from 'react'
-import styled, { css } from 'styled-components'
 
 /*
     A prop based styled Div with media queries. 
@@ -15,7 +16,7 @@ import styled, { css } from 'styled-components'
             mob={mobileStyles}
         />
  */
-const Div = styled.div`
+export const Div = styled.div`
     ${props => css`
         ${props.css}
 
@@ -26,7 +27,7 @@ const Div = styled.div`
     `}
 `
 
-const Span = styled.span`
+export const Span = styled.span`
     ${props => css`
         ${props.css}
 
@@ -37,7 +38,7 @@ const Span = styled.span`
     `}
 `
 
-const Img = styled.img`
+export const Img = styled.img`
     ${props => css`
         ${props.css}
 
@@ -48,11 +49,8 @@ const Img = styled.img`
     `}
 `
 
-
-const center: string = `
-        margin: auto;
-        width: 50%;
-        text-align: center;
+export const Center = styled.div`
+    margin: auto;
+    width: 50%;
+    text-align: center;
 `
-
-export { Div, Span, Img, center }

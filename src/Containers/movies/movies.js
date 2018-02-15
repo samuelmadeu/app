@@ -22,8 +22,11 @@ type Props = {
 
 export type State = {
     moviesList: Array<mixed>, 
+    sortedMoviesList: Array<mixed>,
     isLoading: boolean, 
-    value: string
+    value: string, 
+    filterByTitleToggle: boolean, 
+    filterByYearToggle: boolean
 }
 
 // Contains all the business logic and fetch
@@ -33,8 +36,11 @@ export default class MoviesContainer extends React.Component<Props, State> {
 
         this.state = {
             moviesList: [], 
+            sortedMoviesList: [], 
             value: '', 
             isLoading: false,
+            filterByTitleToggle: true, 
+            filterByYearToggle: false, 
         }
     }
 
@@ -45,6 +51,24 @@ export default class MoviesContainer extends React.Component<Props, State> {
         getMoviesFromApi(this.state.value)
             .then((moviesList: Array<mixed>) => this.setState({ moviesList: moviesList, isLoading: false }))
         e.preventDefault()
+    }
+
+    // sort by filter toggle state 
+    handleFilterToggles = (): void => {
+        this.setState((prevState) => ({ 
+            filterByTitleToggle: !prevState, 
+            filterByYearToggle: !prevState 
+        }))
+    }
+
+    handleSortBy = (a): void => {
+        let some = {
+            'title' : 'Title', 
+            'year' : 'Year', 
+            'default' : 'Title'
+        }
+
+        return (some[a] || some['default'])
     }
 
     render(): React.Node {

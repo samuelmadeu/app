@@ -1,22 +1,12 @@
 // @flow
 import * as React from 'react'
-import styled from 'styled-components'
-import {} from './styles'
-import { Div, Img, center } from './../../styleUtils'
+import { Grid, ContentBody, GradientBackground, Results, SortBy, Button, ButtonsWrapper, RightFloat, Heading } from './styles'
+import { Div, Img, Center } from './../../styleUtils'
 import Logo from './../../assets/images/logo.png'
 import LogoAlt from './../../assets/images/logo-alt.png'
 import MoviesContainer from './../../Containers/movies/movies'
 import InputForm from '../../Components/InputForm/InputForm'
-
-const PageWrapper = styled.div`
-    background: #12BFC8;
-    height: 514px;
-    padding: 30px;
-`
-
-type Props = {
-    moviesList: Array<mixed>
-}
+import Card from '../../Components/Card/card';
 
 type MoviesContainerType = {
     handleInputChange: Function, 
@@ -29,17 +19,10 @@ type MoviesContainerType = {
 }
 
 // all the presentional logic of the movies page 
-export default class MoviesPage extends React.Component<Props> {
+export default class MoviesPage extends React.Component {
     render(): React.Node {
         return (
-            <PageWrapper>
-               <Img src={Logo} css={`height: 40px;`}  />
-
-                <Div css={center + `padding-top: 100px;`}>
-                    <Img src={LogoAlt} css={`height: 120px; padding-bottom: 25px;`} />
-
-                    <Div css={`font-size: 30px; line-height: 25px; color: white;`}>iTunes <strong>movie</strong> search</Div>
-
+            <Wrapper>
                     <MoviesContainer 
                         render={({ 
                             handleInputChange, 
@@ -52,22 +35,47 @@ export default class MoviesPage extends React.Component<Props> {
                         }: MoviesContainerType
                         ) => (
                             <React.Fragment>
-                                <InputForm 
-                                    onSubmit={(e: SyntheticEvent<HTMLInputElement>) => handleInputSubmit(e)}
-                                    onChange={(e: SyntheticEvent<HTMLInputElement>) => handleInputChange(e)}
-                                    value={value}
-                                />
-
-                                <ul>
-                                    {moviesList.map(i => <li key={i.trackId}>{i.trackId}</li>)}
-                                </ul>
+                                    <InputForm 
+                                        onSubmit={(e: SyntheticEvent<HTMLInputElement>) => handleInputSubmit(e)}
+                                        onChange={(e: SyntheticEvent<HTMLInputElement>) => handleInputChange(e)}
+                                        value={value}
+                                    />
+                                    
+                                    <Div css={`padding-top: 50px;`}>
+                                        <Results>Results</Results>
+                                        <RightFloat>
+                                            <SortBy>Sort By</SortBy>
+                                            <ButtonsWrapper>
+                                                <Button primary>Title</Button>
+                                                <Button>Release Year</Button>
+                                            </ButtonsWrapper>
+                                        </RightFloat>
+                                        <Div css={`clear: both;`}/>
+                                    </Div>
+                                   
+                                    <Grid>
+                                        {moviesList.map(movie => <Card key={movie.trackId} { ...movie }/>)}
+                                    </Grid>
+            
                             </React.Fragment>
                         )}
                     />
-
-                </Div>
-
-            </PageWrapper>
+            </Wrapper>
         )
     }
 }
+
+// a wrapper containing all the header content around the parent component
+const Wrapper = ({ children }: { children: React.Node }): React.Element<'div'> => (
+    <React.Fragment>
+        <GradientBackground />
+        <Img src={Logo} css={`height: 40px; padding: 30px;`}  />
+        <ContentBody>
+            <Img src={LogoAlt} css={`height: 120px; padding-bottom: 25px;`} />
+            <Heading>iTunes <strong>movie</strong> search</Heading>
+
+            <div>{ children }</div>
+
+        </ContentBody>
+    </React.Fragment>
+)
