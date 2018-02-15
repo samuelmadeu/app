@@ -23,13 +23,11 @@
     "start": "npm-run-all -p startserver startapp",
     "startapp": "react-scripts start",
     "startserver": "node server",
-    "build": "flow-remove-types src/ -d lib/",
     "prepublish": "npm run build",
     "flow": "flow"
   },
   "devDependencies": {
     "flow-bin": "^0.64.0",
-    "flow-remove-types": "^1.2.3",
     "npm-run-all": "^4.1.2"
   }
 }
