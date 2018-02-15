@@ -23,7 +23,6 @@
     "start": "npm-run-all -p startserver startapp",
     "startapp": "react-scripts start",
     "startserver": "node server",
-    "prepublish": "npm run build",
     "flow": "flow"
   },
   "devDependencies": {
